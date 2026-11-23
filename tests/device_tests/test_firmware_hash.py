@@ -18,8 +18,10 @@ from hashlib import blake2s
 
 import pytest
 
-from trezorlib import firmware, models
+from trezorlib import firmware, messages, models
 from trezorlib.debuglink import DebugSession as Session
+
+PIN4 = "1234"
 
 # size of FIRMWARE_MAXSIZE, see core/embed/models/<model>/model_<model>.h
 FIRMWARE_LENGTHS = {
@@ -64,3 +66,26 @@ def test_firmware_hash_hw(session: Session) -> None:
     hash2 = firmware.get_hash(session, challenge)
     assert hash != hash2
     assert hash2 != empty_hash_challenge
+
+
+@pytest.mark.setup_client(pin=PIN4)
+def test_firmware_hash_locked(session: Session) -> None:
+    assert session.features.unlocked is False
+
+    challenge = b"Hello Trezor"
+    with session.test_ctx as client:
+        # no PIN prompt is expected
+        client.set_expected_responses([messages.FirmwareHash, messages.FirmwareHash])
+        hash_locked = firmware.get_hash(session, None)
+        hash_locked_challenge = firmware.get_hash(session, challenge)
+
+    session.refresh_features()
+    assert session.features.unlocked is False
+
+    with session.test_ctx as client:
+        client.use_pin_sequence([PIN4])
+        session.ensure_unlocked()
+    assert session.features.unlocked is True
+
+    assert firmware.get_hash(session, None) == hash_locked
+    assert firmware.get_hash(session, challenge) == hash_locked_challenge

@@ -27,6 +27,7 @@ if utils.USE_THP:
         MessageType.WipeDevice,
         MessageType.SetBusy,
         MessageType.Ping,
+        MessageType.GetFirmwareHash,
     )
 else:
     ALLOW_WHILE_LOCKED = (
@@ -39,6 +40,7 @@ else:
         MessageType.WipeDevice,
         MessageType.SetBusy,
         MessageType.Ping,
+        MessageType.GetFirmwareHash,
     )
 
 
