@@ -9,7 +9,6 @@ use core::hint::black_box;
 pub mod aesgcm;
 pub mod base58;
 pub mod cosi;
-pub mod crc32;
 pub mod curve25519;
 pub mod ecdsa;
 pub mod ed25519;
