@@ -2,7 +2,9 @@ use super::fonts;
 use crate::ui::component::text::layout::Chunks;
 use crate::ui::component::text::paragraphs::PARAGRAPH_BOTTOM_SPACE;
 use crate::ui::component::text::TextStyle;
-use crate::ui::component::{LineBreaking, PageBreaking};
+#[cfg(not(feature = "bootloader"))]
+use crate::ui::component::LineBreaking;
+use crate::ui::component::PageBreaking;
 use crate::ui::display::{Color, Font};
 use crate::ui::geometry::Offset;
 use crate::ui::util::include_icon;
@@ -17,6 +19,7 @@ pub const BG: Color = BLACK; // Default background color.
 
 // Font constants.
 pub const FONT_BUTTON: Font = fonts::FONT_NORMAL_UPPER;
+#[cfg(not(feature = "bootloader"))]
 pub const FONT_HEADER: Font = fonts::FONT_BOLD_UPPER;
 
 // Text constants.
@@ -28,26 +31,33 @@ pub const TEXT_NORMAL_UPPER: TextStyle = TextStyle::new(fonts::FONT_NORMAL_UPPER
     .with_page_breaking(PageBreaking::CutAndInsertEllipsisBoth)
     .with_ellipsis_icon(ICON_NEXT_PAGE, ELLIPSIS_ICON_MARGIN)
     .with_prev_page_icon(ICON_PREV_PAGE, PREV_PAGE_ICON_MARGIN);
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_BIG: TextStyle = TextStyle::new(fonts::FONT_BIG, FG, BG, FG, FG);
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_CHOICE_ITEMS: TextStyle = TEXT_BIG
     .with_line_spacing(2)
     .with_line_breaking(LineBreaking::BreakAtWhitespace);
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_DEMIBOLD: TextStyle = TextStyle::new(fonts::FONT_DEMIBOLD, FG, BG, FG, FG);
 pub const TEXT_BOLD: TextStyle = TextStyle::new(fonts::FONT_BOLD, FG, BG, FG, FG)
     .with_page_breaking(PageBreaking::CutAndInsertEllipsisBoth)
     .with_ellipsis_icon(ICON_NEXT_PAGE, ELLIPSIS_ICON_MARGIN)
     .with_prev_page_icon(ICON_PREV_PAGE, PREV_PAGE_ICON_MARGIN);
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_BOLD_UPPER: TextStyle = TextStyle::new(fonts::FONT_BOLD_UPPER, FG, BG, FG, FG)
     .with_page_breaking(PageBreaking::CutAndInsertEllipsisBoth)
     .with_ellipsis_icon(ICON_NEXT_PAGE, ELLIPSIS_ICON_MARGIN)
     .with_prev_page_icon(ICON_PREV_PAGE, PREV_PAGE_ICON_MARGIN);
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_MONO: TextStyle = TextStyle::new(fonts::FONT_MONO, FG, BG, FG, FG)
     .with_page_breaking(PageBreaking::CutAndInsertEllipsisBoth)
     .with_ellipsis_icon(ICON_NEXT_PAGE, ELLIPSIS_ICON_MARGIN)
     .with_prev_page_icon(ICON_PREV_PAGE, PREV_PAGE_ICON_MARGIN);
 /// Mono data text does not have hyphens
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_MONO_DATA: TextStyle =
     TEXT_MONO.with_line_breaking(LineBreaking::BreakWordsNoHyphen);
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_MONO_ADDRESS_CHUNKS: TextStyle = TEXT_MONO_DATA
     .with_chunks(MONO_CHUNKS)
     .with_line_spacing(2)
@@ -129,7 +139,9 @@ include_icon!(ICON_WARN_TITLE, "layout_caesar/res/bld_header_warn.toif");
 pub const PROP_INNER_SPACING: i16 = 2;
 pub const PROPS_SPACING: i16 = PARAGRAPH_BOTTOM_SPACE;
 pub const PROPS_KEY_FONT: TextStyle = TEXT_BOLD;
+#[cfg(not(feature = "bootloader"))]
 pub const PROPS_VALUE_FONT: TextStyle = TEXT_MONO;
+#[cfg(not(feature = "bootloader"))]
 pub const PROPS_VALUE_MONO_FONT: TextStyle = TEXT_MONO_DATA;
 
 // checklist settings

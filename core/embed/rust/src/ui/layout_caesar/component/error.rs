@@ -1,6 +1,7 @@
 use super::super::theme::{BG, FG, TITLE_AREA_HEIGHT};
 use super::super::{cshape, theme};
 use crate::strutil::TString;
+use crate::ui::component::text::TextStyle;
 use crate::ui::component::{Child, Component, Event, EventCtx, Label, Never, Pad};
 use crate::ui::constant::{screen, WIDTH};
 use crate::ui::geometry::{Alignment2D, Offset, Point, Rect};
@@ -9,6 +10,11 @@ use crate::ui::shape::Renderer;
 
 const FOOTER_AREA_HEIGHT: i16 = 20;
 const DIVIDER_POSITION: i16 = 43;
+
+#[cfg(feature = "bootloader")]
+const TITLE_STYLE: TextStyle = theme::TEXT_NORMAL_UPPER;
+#[cfg(not(feature = "bootloader"))]
+const TITLE_STYLE: TextStyle = theme::TEXT_BOLD_UPPER;
 
 pub struct ErrorScreen<'a> {
     bg: Pad,
@@ -20,7 +26,7 @@ pub struct ErrorScreen<'a> {
 
 impl<'a> ErrorScreen<'a> {
     pub fn new(title: TString<'a>, message: TString<'a>, footer: TString<'a>) -> Self {
-        let title = Label::centered(title, theme::TEXT_BOLD_UPPER);
+        let title = Label::centered(title, TITLE_STYLE);
         let message = Label::centered(message, theme::TEXT_NORMAL).vertically_centered();
         let footer = Label::centered(footer, theme::TEXT_NORMAL_UPPER).vertically_centered();
 
