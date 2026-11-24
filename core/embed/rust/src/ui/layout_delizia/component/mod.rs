@@ -4,17 +4,23 @@ mod action_bar;
 mod address_details;
 #[cfg(feature = "ui_overlay")]
 mod binary_selection;
+#[cfg(feature = "bootloader")]
 pub mod bl_confirm;
 mod button;
 #[cfg(feature = "translations")]
 mod coinjoin_progress;
+#[cfg(not(feature = "bootloader"))]
 mod fido;
+#[cfg(not(feature = "bootloader"))]
 mod footer;
 mod vertical_menu;
+#[cfg(not(feature = "bootloader"))]
 #[rustfmt::skip]
 mod fido_icons;
 mod error;
+#[cfg(not(feature = "bootloader"))]
 mod frame;
+#[cfg(not(feature = "bootloader"))]
 mod header;
 #[cfg(feature = "translations")]
 mod hold_to_confirm;
@@ -54,9 +60,13 @@ pub use button::{Button, ButtonContent, ButtonMsg, ButtonStyle, ButtonStyleSheet
 #[cfg(feature = "translations")]
 pub use coinjoin_progress::CoinJoinProgress;
 pub use error::ErrorScreen;
+#[cfg(not(feature = "bootloader"))]
 pub use fido::FidoCredential;
+#[cfg(not(feature = "bootloader"))]
 pub use footer::Footer;
+#[cfg(not(feature = "bootloader"))]
 pub use frame::{Frame, FrameMsg};
+#[cfg(not(feature = "bootloader"))]
 pub use header::Header;
 #[cfg(feature = "translations")]
 pub use hold_to_confirm::HoldToConfirm;

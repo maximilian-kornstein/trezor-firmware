@@ -117,6 +117,9 @@ impl CommonUI for UIDelizia {
             t2 / 1000,
             (t2 % 1000) / 100
         ));
+        #[cfg(feature = "bootloader")]
+        let font = fonts::FONT_BOLD_UPPER;
+        #[cfg(not(feature = "bootloader"))]
         let font = fonts::FONT_SUB;
         let size = Offset::new(
             font.visible_text_width("00.0|00.0"),
