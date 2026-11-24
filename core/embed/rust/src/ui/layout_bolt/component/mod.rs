@@ -7,16 +7,20 @@ mod button;
 mod coinjoin_progress;
 #[cfg(feature = "ble")]
 pub mod confirm_pairing;
+#[cfg(not(feature = "bootloader"))]
 mod dialog;
+#[cfg(not(feature = "bootloader"))]
 mod fido;
 #[cfg(feature = "ble")]
 pub mod pairing_mode;
+#[cfg(not(feature = "bootloader"))]
 #[rustfmt::skip]
 mod fido_icons;
 mod error;
 mod frame;
 #[cfg(feature = "micropython")]
 mod homescreen;
+#[cfg(not(feature = "bootloader"))]
 mod keyboard;
 mod loader;
 #[cfg(feature = "translations")]
@@ -45,17 +49,25 @@ pub use button::{
 };
 #[cfg(feature = "translations")]
 pub use coinjoin_progress::CoinJoinProgress;
+#[cfg(not(feature = "bootloader"))]
 pub use dialog::{Dialog, DialogMsg, IconDialog};
 pub use error::ErrorScreen;
+#[cfg(not(feature = "bootloader"))]
 pub use fido::{FidoConfirm, FidoMsg};
 pub use frame::{Frame, FrameMsg};
 #[cfg(feature = "micropython")]
 pub use homescreen::{check_homescreen_format, Homescreen, HomescreenMsg, Lockscreen};
+#[cfg(not(feature = "bootloader"))]
 pub use keyboard::bip39::Bip39Input;
+#[cfg(not(feature = "bootloader"))]
 pub use keyboard::mnemonic::{MnemonicInput, MnemonicKeyboard, MnemonicKeyboardMsg};
+#[cfg(not(feature = "bootloader"))]
 pub use keyboard::passphrase::{PassphraseKeyboard, PassphraseKeyboardMsg};
+#[cfg(not(feature = "bootloader"))]
 pub use keyboard::pin::{PinKeyboard, PinKeyboardMsg};
+#[cfg(not(feature = "bootloader"))]
 pub use keyboard::slip39::Slip39Input;
+#[cfg(not(feature = "bootloader"))]
 pub use keyboard::word_count::{SelectWordCount, SelectWordCountLayout, SelectWordCountMsg};
 pub use loader::{Loader, LoaderMsg, LoaderStyle, LoaderStyleSheet};
 #[cfg(feature = "translations")]

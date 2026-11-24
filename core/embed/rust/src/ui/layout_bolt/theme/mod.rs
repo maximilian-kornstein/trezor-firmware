@@ -5,9 +5,12 @@ use sys::time::ShortDuration;
 
 use super::component::{ButtonStyle, ButtonStyleSheet, LoaderStyle, LoaderStyleSheet, ResultStyle};
 use super::fonts;
+#[cfg(not(feature = "bootloader"))]
 use crate::ui::component::text::layout::Chunks;
 use crate::ui::component::text::paragraphs::PARAGRAPH_BOTTOM_SPACE;
-use crate::ui::component::text::{LineBreaking, PageBreaking, TextStyle};
+use crate::ui::component::text::TextStyle;
+#[cfg(not(feature = "bootloader"))]
+use crate::ui::component::text::{LineBreaking, PageBreaking};
 use crate::ui::component::FixedHeightBar;
 use crate::ui::display::Color;
 use crate::ui::geometry::{Insets, Offset};
@@ -115,14 +118,17 @@ pub const fn label_default() -> TextStyle {
     TEXT_NORMAL
 }
 
+#[cfg(not(feature = "bootloader"))]
 pub const fn label_keyboard() -> TextStyle {
     TextStyle::new(fonts::FONT_DEMIBOLD, OFF_WHITE, BG, GREY_LIGHT, GREY_LIGHT)
 }
 
+#[cfg(not(feature = "bootloader"))]
 pub const fn label_keyboard_prompt() -> TextStyle {
     TextStyle::new(fonts::FONT_DEMIBOLD, GREY_LIGHT, BG, GREY_LIGHT, GREY_LIGHT)
 }
 
+#[cfg(not(feature = "bootloader"))]
 pub const fn label_keyboard_warning() -> TextStyle {
     TextStyle::new(fonts::FONT_DEMIBOLD, RED, BG, GREY_LIGHT, GREY_LIGHT)
 }
@@ -131,6 +137,7 @@ pub const fn label_keyboard_minor() -> TextStyle {
     TEXT_NORMAL_OFF_WHITE
 }
 
+#[cfg(not(feature = "bootloader"))]
 pub const fn label_warning() -> TextStyle {
     TEXT_DEMIBOLD
 }
@@ -161,6 +168,7 @@ pub const fn label_title() -> TextStyle {
     )
 }
 
+#[cfg(not(feature = "bootloader"))]
 pub const fn label_subtitle() -> TextStyle {
     TextStyle::new(fonts::FONT_MONO, GREY_LIGHT, BG, GREY_LIGHT, GREY_LIGHT)
 }
@@ -365,6 +373,7 @@ pub const fn button_info() -> ButtonStyleSheet {
     }
 }
 
+#[cfg(not(feature = "bootloader"))]
 pub const fn button_pin() -> ButtonStyleSheet {
     ButtonStyleSheet {
         normal: &ButtonStyle {
@@ -397,6 +406,7 @@ pub const fn button_pin() -> ButtonStyleSheet {
     }
 }
 
+#[cfg(not(feature = "bootloader"))]
 pub const fn button_pin_confirm() -> ButtonStyleSheet {
     ButtonStyleSheet {
         normal: &ButtonStyle {
@@ -429,6 +439,7 @@ pub const fn button_pin_confirm() -> ButtonStyleSheet {
     }
 }
 
+#[cfg(not(feature = "bootloader"))]
 pub const fn button_pin_autocomplete() -> ButtonStyleSheet {
     ButtonStyleSheet {
         normal: &ButtonStyle {
@@ -461,6 +472,7 @@ pub const fn button_pin_autocomplete() -> ButtonStyleSheet {
     }
 }
 
+#[cfg(not(feature = "bootloader"))]
 pub const fn button_suggestion_confirm() -> ButtonStyleSheet {
     ButtonStyleSheet {
         normal: &ButtonStyle {
@@ -493,6 +505,7 @@ pub const fn button_suggestion_confirm() -> ButtonStyleSheet {
     }
 }
 
+#[cfg(not(feature = "bootloader"))]
 pub const fn button_suggestion_autocomplete() -> ButtonStyleSheet {
     ButtonStyleSheet {
         normal: &ButtonStyle {
@@ -525,6 +538,7 @@ pub const fn button_suggestion_autocomplete() -> ButtonStyleSheet {
     }
 }
 
+#[cfg(not(feature = "bootloader"))]
 pub const fn button_counter() -> ButtonStyleSheet {
     ButtonStyleSheet {
         normal: &ButtonStyle {
@@ -593,17 +607,21 @@ pub const fn loader_lock_icon() -> LoaderStyleSheet {
 
 pub const TEXT_NORMAL: TextStyle =
     TextStyle::new(fonts::FONT_NORMAL, FG, BG, GREY_LIGHT, GREY_LIGHT);
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_DEMIBOLD: TextStyle =
     TextStyle::new(fonts::FONT_DEMIBOLD, FG, BG, GREY_LIGHT, GREY_LIGHT);
 pub const TEXT_BOLD: TextStyle =
     TextStyle::new(fonts::FONT_BOLD_UPPER, FG, BG, GREY_LIGHT, GREY_LIGHT);
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_MONO: TextStyle = TextStyle::new(fonts::FONT_MONO, FG, BG, GREY_LIGHT, GREY_LIGHT)
     .with_line_breaking(LineBreaking::BreakAtWhitespace)
     .with_page_breaking(PageBreaking::CutAndInsertEllipsisBoth)
     .with_ellipsis_icon(ICON_PAGE_NEXT, 0)
     .with_prev_page_icon(ICON_PAGE_PREV, 0);
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_MONO_DATA: TextStyle =
     TEXT_MONO.with_line_breaking(LineBreaking::BreakWordsNoHyphen);
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_MONO_WITH_CLASSIC_ELLIPSIS: TextStyle =
     TextStyle::new(fonts::FONT_MONO, FG, BG, GREY_LIGHT, GREY_LIGHT)
         .with_line_breaking(LineBreaking::BreakWordsNoHyphen)
@@ -611,18 +629,21 @@ pub const TEXT_MONO_WITH_CLASSIC_ELLIPSIS: TextStyle =
         .with_prev_page_icon(ICON_PAGE_PREV, 0);
 /// Makes sure that the displayed text (usually address) will get divided into
 /// smaller chunks.
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_MONO_ADDRESS_CHUNKS: TextStyle = TEXT_MONO_DATA
     .with_chunks(Chunks::new(4, 9))
     .with_line_spacing(5);
 /// Smaller horizontal chunk offset, used e.g. for long Cardano addresses.
 /// Also moving the next page ellipsis to the left (as there is a space on the
 /// left). Last but not least, maximum number of rows is 4 in this case.
+#[cfg(not(feature = "bootloader"))]
 pub const TEXT_MONO_ADDRESS_CHUNKS_SMALLER_X_OFFSET: TextStyle = TEXT_MONO_DATA
     .with_chunks(Chunks::new(4, 7).with_max_rows(4))
     .with_line_spacing(5)
     .with_ellipsis_icon(ICON_PAGE_NEXT, -12);
 
 /// Decide the text style of chunkified text according to its length.
+#[cfg(not(feature = "bootloader"))]
 pub fn get_chunkified_text_style(character_length: usize) -> &'static TextStyle {
     // Longer addresses have smaller x_offset so they fit even with scrollbar
     // (as they will be shown on more than one page)
@@ -663,7 +684,9 @@ pub const RESULT_FOOTER_HEIGHT: i16 = 62;
 pub const PROP_INNER_SPACING: i16 = PARAGRAPH_BOTTOM_SPACE;
 pub const PROPS_SPACING: i16 = PARAGRAPH_BOTTOM_SPACE;
 pub const PROPS_KEY_FONT: TextStyle = TEXT_NORMAL;
+#[cfg(not(feature = "bootloader"))]
 pub const PROPS_VALUE_FONT: TextStyle = TEXT_MONO;
+#[cfg(not(feature = "bootloader"))]
 pub const PROPS_VALUE_MONO_FONT: TextStyle = TEXT_MONO_DATA;
 
 // checklist settings

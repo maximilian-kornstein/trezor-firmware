@@ -463,6 +463,7 @@ impl Button {
         )
     }
 
+    #[cfg(not(feature = "bootloader"))]
     pub fn select_word(
         words: [TString<'static>; 3],
     ) -> CancelInfoConfirm<impl SelectHandler, impl SelectHandler, impl SelectHandler> {
